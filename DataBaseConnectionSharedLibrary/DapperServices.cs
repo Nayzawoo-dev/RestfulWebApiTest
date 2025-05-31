@@ -14,12 +14,23 @@ namespace DataBaseConnectionSharedLibrary
             _connection = connection;
         }
 
-        public List<T> Execute<T>(string query,object parameters = null)
+
+        public List<T> Query<T>(string query,object parameters = null)
         {
             SqlConnection connection = new SqlConnection(_connection.ConnectionString);
             connection.Open();
-            var lst = connection.Query<T>(query,connection).ToList();
+            var res = connection.Query<T>(query,parameters).ToList();
+            connection.Close();
+            return res;
+        }
 
+        public int Execute(string query,object parameters = null)
+        {
+            SqlConnection connection = new SqlConnection(_connection.ConnectionString);
+            connection.Open();
+            int res = connection.Execute(query, parameters);
+            connection.Close();
+            return res;
         }
     }
 }
