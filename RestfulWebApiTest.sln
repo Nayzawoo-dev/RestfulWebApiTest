@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35931.197 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestfulWebApiTest", "RestfulWebApi\RestfulWebApiTest.csproj", "{6732877D-C84A-40F7-97ED-ECEA74FABE58}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataBaseConnectionSharedLibrary", "DataBaseConnectionSharedLibrary\DataBaseConnectionSharedLibrary.csproj", "{579DB392-224B-4DF5-AACC-64CE33FF4089}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6732877D-C84A-40F7-97ED-ECEA74FABE58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6732877D-C84A-40F7-97ED-ECEA74FABE58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6732877D-C84A-40F7-97ED-ECEA74FABE58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6732877D-C84A-40F7-97ED-ECEA74FABE58}.Release|Any CPU.Build.0 = Release|Any CPU
+		{579DB392-224B-4DF5-AACC-64CE33FF4089}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{579DB392-224B-4DF5-AACC-64CE33FF4089}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{579DB392-224B-4DF5-AACC-64CE33FF4089}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{579DB392-224B-4DF5-AACC-64CE33FF4089}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C49711EB-AD22-4CDF-8FDD-FA744EA7BE3E}
+	EndGlobalSection
+EndGlobal
