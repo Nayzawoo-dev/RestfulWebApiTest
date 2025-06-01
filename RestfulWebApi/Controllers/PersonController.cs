@@ -44,7 +44,7 @@ namespace RestfulWebApi.Controllers
         [HttpPost]
         public IActionResult CreatePerson([FromBody] PersonModels person)
         {
-            var model = _personServices.CreatePerson(person);
+            var model = _personServices.PostPerson(person);
             return Ok(model);
         }
 
@@ -66,6 +66,11 @@ namespace RestfulWebApi.Controllers
         [HttpPatch("{id}")]
         public IActionResult UpdatePerson([FromBody] PersonModels person, int id)
         {
+            var res = _personServices.GetPersonById(id);
+            if(res.Success == false)
+            {
+                return NotFound(res);
+            }
             var model = _personServices.UpdatePerson(id, person);
             if (model.Success == false)
             {
@@ -80,7 +85,16 @@ namespace RestfulWebApi.Controllers
         [HttpDelete("{id}")]
         public IActionResult DeletePerson(int id)
         {
-           var model = _personServices.DeletePerson(id);
+            var res = _personServices.GetPersonById(id);
+            if (res.Success == false)
+            {
+                return NotFound(res);
+            }
+            var model = _personServices.DeletePerson(id);
+            if(model.Success == false)
+            {
+                return BadRequest(model);
+            }
            return Ok(model);
         }
     }

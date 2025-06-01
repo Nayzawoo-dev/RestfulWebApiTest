@@ -59,8 +59,17 @@ namespace RestfulWebApiTest.Services
             return models;
         }
 
-        public ResponseModels CreatePerson(PersonModels requestmodel)
+        public ResponseModels PostPerson(PersonModels requestmodel)
         {
+            if (requestmodel.UserName.IsNullOrEmpty1())
+            {
+                return new ResponseModels
+                {
+                    Success = false,
+                    Message = "Username is required"
+                };
+            }
+            Console.WriteLine(requestmodel.ToJson());
             string query = @"INSERT INTO [dbo].[Tbl_Window]
            ([UserName]
            ,[Password])
@@ -93,7 +102,7 @@ namespace RestfulWebApiTest.Services
                 var model = new ResponseModels
                 {
                     Success = res > 0,
-                    Message = res > 0 ? "Success" : "Fail"
+                    Message = res > 0 ? "Your Id is Invalid So, We are insert" : "Fail"
                 };
                 return model;
             }
@@ -180,7 +189,7 @@ namespace RestfulWebApiTest.Services
             var models = new ResponseModels
             {
                 Success = res > 0,
-                Message = res > 0 ? "Successful" : "Your Id is invalid or something"
+                Message = res > 0 ? "Successful" : "Fail"
             };
             return models;
 
@@ -198,7 +207,7 @@ namespace RestfulWebApiTest.Services
             var model = new ResponseModels
             {
                 Success = res > 0,
-                Information = res > 0 ? "Delete Successful" : "Delete Fail"
+                Message = res > 0 ? "Delete Successful" : "Delete Fail"
 
             };
 
