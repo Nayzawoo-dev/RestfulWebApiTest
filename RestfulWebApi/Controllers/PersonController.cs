@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
+using Microsoft.VisualBasic;
 using RestfulWebApiTest.Models;
+using RestfulWebApiTest.Services;
 
 namespace RestfulWebApi.Controllers
 {
@@ -11,92 +13,75 @@ namespace RestfulWebApi.Controllers
     [ApiController]
     public class PersonController : ControllerBase
     {
-        private readonly DapperServices _dapperservices;
+        PersonServices _personServices;
+
         public PersonController()
         {
-            _dapperservices = new DapperServices(new SqlConnectionStringBuilder
-            {
-                DataSource = "DELL",
-                InitialCatalog = "DotNetTraining",
-                UserID = "SA",
-                Password = "root",
-                TrustServerCertificate = true,
-            });
+            _personServices = new PersonServices();  
         }
         [HttpGet]
         public IActionResult GetPerson()
         {
-            var list = _dapperservices.Query<PersonModels>("select * from Tbl_Window");
-            var data = new
-            {
-                Success = true,
-                Information = list,
-                Message = "Successful"
-            };
+            var data = _personServices.GetPerson();
             return Ok(data);
         }
 
-        [HttpGet("Detail/{password}")]
+        [HttpGet("Detail/{id}")]
         //[HttpGet("{password}/{username}")]
-        public IActionResult GetDetailPerson(string password)
+        public IActionResult GetDetailPerson(int id)
         {
-           var list = _dapperservices.Query<PersonModels>
-                ("select * from Tbl_Window where Password = @Password", new PersonModels
+           
+            var model = _personServices.GetPersonById(id);
+            if (model.Success == false)
             {
-                Password = password,
-            });
-            if(list.Count == 0)
-            {
-                var data = new { 
-                Success = false,
-                Message = "Person Not Found!"
-                };
-
-                return NotFound(data);
-            }
-
-            var data2 = new {
-            Success = true,
-            Information = list[0]
+                return BadRequest(model);
             };
 
-            return Ok(data2);
+            return Ok(model);
+            
         }
 
         [HttpPost]
         public IActionResult CreatePerson([FromBody] PersonModels person)
         {
-            string query = @"INSERT INTO [dbo].[Tbl_Window]
-           ([UserName]
-           ,[Password])
-     VALUES
-           (@UserName
-           ,@Password)";
-            int res = _dapperservices.Execute(query, person);
-            var data = new
+            var model = _personServices.CreatePerson(person);
+            return Ok(model);
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult CreateOrUpdatePerson([FromBody] PersonModels person, int id)
+        {
+            var model = _personServices.UpdateAndPostPerson(id,person);
+            if (!model.Success)
             {
-                Success = res > 0,
-                Message = res > 0 ? "Complete" : "Fail"
-            };
-            return Ok(data);
+                return BadRequest(model);
+            }
+            return Ok(model);
+
         }
 
-        [HttpPut]
-        public IActionResult CreateOrUpdatePerson()
+
+
+
+        [HttpPatch("{id}")]
+        public IActionResult UpdatePerson([FromBody] PersonModels person, int id)
         {
-            return Ok("Create or Update Person");
+            var model = _personServices.UpdatePerson(id, person);
+            if (model.Success == false)
+            {
+                return BadRequest(model);
+            }
+
+            return Ok(model);
         }
 
-        [HttpPatch]
-        public IActionResult UpdatePerson()
-        {
-            return Ok("Update Person");
-        }
 
-        [HttpDelete]
-        public IActionResult DeletePerson()
+
+        [HttpDelete("{id}")]
+        public IActionResult DeletePerson(int id)
         {
-            return Ok("Delete Person");
+           var model = _personServices.DeletePerson(id);
+           return Ok(model);
         }
     }
 }

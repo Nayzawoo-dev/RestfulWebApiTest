@@ -24,7 +24,7 @@ namespace DataBaseConnectionSharedLibrary
             connection.Close();
             var res = JsonConvert.SerializeObject(dt);
             var list = JsonConvert.DeserializeObject<List<T>>(res);
-            return list;
+            return list!;
 
 
 
