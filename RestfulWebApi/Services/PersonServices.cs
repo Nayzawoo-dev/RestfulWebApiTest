@@ -31,7 +31,7 @@ namespace RestfulWebApiTest.Services
                 Information = list,
                 Message = "Successful"
             };
-            return (data);
+            return data;
         }
 
         public ResponseModels GetPersonById(int id)
@@ -69,7 +69,7 @@ namespace RestfulWebApiTest.Services
                     Message = "Username is required"
                 };
             }
-            Console.WriteLine(requestmodel.ToJson());
+            Console.WriteLine(requestmodel.ToJson1());
             string query = @"INSERT INTO [dbo].[Tbl_Window]
            ([UserName]
            ,[Password])
@@ -152,7 +152,7 @@ namespace RestfulWebApiTest.Services
         {
             string field = string.Empty;
             requestmodel.Id = id;
-
+            #region Check Field
             if (requestmodel.UserName != null && !string.IsNullOrEmpty(requestmodel.UserName.Trim()))
             {
                 field += "[UserName] = @UserName,";
@@ -172,6 +172,7 @@ namespace RestfulWebApiTest.Services
                 };
                 return model;
             }
+            #endregion
 
             if (field.Length > 0)
             {

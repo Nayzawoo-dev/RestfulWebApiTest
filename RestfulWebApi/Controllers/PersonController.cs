@@ -44,6 +44,7 @@ namespace RestfulWebApi.Controllers
         [HttpPost]
         public IActionResult CreatePerson([FromBody] PersonModels person)
         {
+            Console.WriteLine(person.ToJson1());
             var model = _personServices.PostPerson(person);
             return Ok(model);
         }

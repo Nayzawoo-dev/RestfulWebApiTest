@@ -16,9 +16,9 @@ namespace DataBaseConnectionSharedLibrary
             return res;
         }
 
-        public static string ToJson(this object obj)
+        public static string ToJson1(this object obj)
         {
-            var res = JsonConvert.SerializeObject(obj);
+            var res = JsonConvert.SerializeObject(obj, Formatting.Indented);
             return res;
         }
     }
