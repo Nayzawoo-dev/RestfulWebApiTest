@@ -6,11 +6,11 @@ using RestfulWebApiTest.Models;
 namespace RestfulWebApiTest.Services
 {
     //Business Logic Layer And Data Access Layer
-    public class PersonServices : IPersonServices
+    public class PersonServices2 : IPersonServices
     {
         private readonly IDapperServices _dapperServices;
 
-        public PersonServices(IDapperServices dapperServices)
+        public PersonServices2(IDapperServices dapperServices)
         {
             _dapperServices = dapperServices;
         }
@@ -69,7 +69,7 @@ namespace RestfulWebApiTest.Services
      VALUES
            (@UserName
            ,@Password)";
-            int res = _dapperServices.Execute(query, requestmodel);
+            int res = _dapperServices.Execute(query,requestmodel);
             var model = new ResponseModels
             {
                 Success = res > 0,
@@ -78,10 +78,10 @@ namespace RestfulWebApiTest.Services
             return model;
         }
 
-        public ResponseModels UpdateAndPostPerson(int id, PersonModels requestmodel)
+        public ResponseModels UpdateAndPostPerson(int id,PersonModels requestmodel)
         {
             requestmodel.Id = id;
-            var list = _dapperServices.Query<PersonModels>("select * from Tbl_Window where Id=@Id", requestmodel);
+            var list = _dapperServices.Query<PersonModels>("select * from Tbl_Window where Id=@Id",requestmodel);
             if (list.Count == 0)
             {
                 string query = @"INSERT INTO [dbo].[Tbl_Window]
@@ -128,7 +128,7 @@ namespace RestfulWebApiTest.Services
                 string query = $@"UPDATE [dbo].[Tbl_Window]
        SET {field}
        WHERE Id=@Id";
-
+                
                 var res2 = _dapperServices.Execute(query, requestmodel);
                 var model = new ResponseModels
                 {
@@ -141,7 +141,7 @@ namespace RestfulWebApiTest.Services
             ;
         }
 
-        public ResponseModels UpdatePerson(int id, PersonModels requestmodel)
+        public ResponseModels UpdatePerson(int id,PersonModels requestmodel)
         {
             string field = string.Empty;
             requestmodel.Id = id;

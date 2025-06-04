@@ -13,16 +13,17 @@ namespace RestfulWebApi.Controllers
     [ApiController]
     public class PersonController : ControllerBase
     {
-        PersonServices _personServices;
+       private readonly IPersonServices _personServices;
 
-        public PersonController()
+        public PersonController(IPersonServices personServices)
         {
-            _personServices = new PersonServices();  
+            _personServices = personServices;
         }
+
         [HttpGet]
-        public IActionResult GetPerson()
+        public IActionResult GetPerson([FromServices] IPersonServices person)
         {
-            var data = _personServices.GetPerson();
+            var data = person.GetPerson();
             return Ok(data);
         }
 

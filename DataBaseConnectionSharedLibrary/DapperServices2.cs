@@ -6,26 +6,26 @@ using Microsoft.Extensions.Configuration;
 
 namespace DataBaseConnectionSharedLibrary
 {
-    public class DapperServices : IDapperServices
+    public class DapperServices2 : IDapperServices
     {
         private readonly SqlConnectionStringBuilder _connection;
 
-        public DapperServices(IConfiguration configuration)
+        public  DapperServices2(IConfiguration configuration)
         {
-            _connection = new SqlConnectionStringBuilder(configuration.GetConnectionString("DatabaseConnection"));
+            _connection = new SqlConnectionStringBuilder (configuration.GetConnectionString("DatabaseConnection"));
         }
 
 
-        public List<T> Query<T>(string query, object? parameters = null)
+        public List<T> Query<T>(string query,object? parameters = null)
         {
             SqlConnection connection = new SqlConnection(_connection.ConnectionString);
             connection.Open();
-            var res = connection.Query<T>(query, parameters).ToList();
+            var res = connection.Query<T>(query,parameters).ToList();
             connection.Close();
             return res;
         }
 
-        public int Execute(string query, object? parameters = null)
+        public int Execute(string query,object? parameters = null)
         {
             SqlConnection connection = new SqlConnection(_connection.ConnectionString);
             connection.Open();
