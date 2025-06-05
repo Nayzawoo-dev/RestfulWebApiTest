@@ -19,8 +19,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 //builder.Services.AddScoped<DapperServices>(n => new DapperServices(_connection));
-builder.Services.AddScoped<IDapperServices, DapperServices2>();
-builder.Services.AddScoped<IPersonServices, PersonServices2>();
+builder.Services.AddScoped<IDapperServices, DapperServices>();
+builder.Services.AddScoped<IPersonServices, PersonServices>();
 var app = builder.Build();
 
 

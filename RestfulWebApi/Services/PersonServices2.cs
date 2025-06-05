@@ -208,7 +208,9 @@ namespace RestfulWebApiTest.Services
             return model;
         }
 
-
-
+        public ResponseModels GetPerson(int pageNo, int pageSize)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -15,9 +15,13 @@ namespace RestfulWebApiTest.Services
             _dapperServices = dapperServices;
         }
 
-        public ResponseModels GetPerson()
+        public ResponseModels GetPerson(int pageNo,int pageSize)
         {
-            var list = _dapperServices.Query<PersonModels>("select * from Tbl_Window");
+            var list = _dapperServices.Query<PersonModels>("select * from Tbl_Window order by Id offset ((@pageNo -1)*@pageSize) rows fetch next @pageSize rows only",new
+            {
+                pageNo = pageNo,
+                pageSize = pageSize
+            });
             var data = new ResponseModels
             {
                 Success = true,
@@ -208,7 +212,9 @@ namespace RestfulWebApiTest.Services
             return model;
         }
 
-
-
+        public ResponseModels GetPerson()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

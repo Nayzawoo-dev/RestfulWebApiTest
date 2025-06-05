@@ -20,10 +20,10 @@ namespace RestfulWebApi.Controllers
             _personServices = personServices;
         }
 
-        [HttpGet]
-        public IActionResult GetPerson([FromServices] IPersonServices person)
+        [HttpGet("{pageNo}/{pageSize}")]
+        public IActionResult GetPerson(int pageNo,int pageSize)
         {
-            var data = person.GetPerson();
+            var data = _personServices.GetPerson(pageNo,pageSize);
             return Ok(data);
         }
 

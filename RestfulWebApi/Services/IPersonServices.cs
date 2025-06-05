@@ -10,5 +10,6 @@ namespace RestfulWebApiTest.Services
         ResponseModels PostPerson(PersonModels requestmodel);
         ResponseModels UpdateAndPostPerson(int id, PersonModels requestmodel);
         ResponseModels UpdatePerson(int id, PersonModels requestmodel);
+        ResponseModels GetPerson(int pageNo, int pageSize);
     }
 }
